@@ -6491,13 +6491,7 @@
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_CommonBlock.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_Curve.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_DS.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_FaceInfo.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_IndexRange.cxx">
@@ -6512,31 +6506,16 @@
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_PassKey.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_PassKeyBoolean.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_PassKeyMapHasher.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_Pave.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_PaveBlock.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_PaveMapHasher.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_Point.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_ShapeInfo.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
     <ClCompile Include=".\OCC\src\BOPDS\BOPDS_SubIterator.cxx">
-      <Filter>Source files\BOPDS</Filter>
-    </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPDS\BOPDS_Tools.cxx">
       <Filter>Source files\BOPDS</Filter>
     </ClCompile>
     <ClCompile Include=".\OCC\src\BOPAlgo\BOPAlgo_Algo.cxx">
@@ -6620,9 +6599,6 @@
     <ClCompile Include=".\OCC\src\BOPAlgo\BOPAlgo_Tools.cxx">
       <Filter>Source files\BOPAlgo</Filter>
     </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPAlgo\BOPAlgo_WireEdgeSet.cxx">
-      <Filter>Source files\BOPAlgo</Filter>
-    </ClCompile>
     <ClCompile Include=".\OCC\src\BOPAlgo\BOPAlgo_WireSplitter.cxx">
       <Filter>Source files\BOPAlgo</Filter>
     </ClCompile>
@@ -6651,9 +6627,6 @@
       <Filter>Source files\BOPTools</Filter>
     </ClCompile>
     <ClCompile Include=".\OCC\src\BOPTools\BOPTools_Set.cxx">
-      <Filter>Source files\BOPTools</Filter>
-    </ClCompile>
-    <ClCompile Include=".\OCC\src\BOPTools\BOPTools_SetMapHasher.cxx">
       <Filter>Source files\BOPTools</Filter>
     </ClCompile>
     <ClCompile Include=".\OCC\src\BOPTools\BOPTools_ShapeSet.cxx">
