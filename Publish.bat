@@ -1,4 +1,10 @@
-"%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe" "Xbim.Geometry.Nuget.sln" /build "Release|x64"
+rm -rf packages
+
+nuget restore "Xbim.Geometry.Nuget.sln"
+sleep 2
+nuget restore "Xbim.Geometry.Nuget.sln"
+
+"%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe" "Xbim.Geometry.Nuget.sln" /build "Release|Any CPU"
 nuget pack Xbim.Geometry.Nuspec
 
 copy *.nupkg ..\LocalPackages
