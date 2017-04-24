@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="ReleaseWithPDB|Win32">
+      <Configuration>ReleaseWithPDB</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseWithPDB|x64">
+      <Configuration>ReleaseWithPDB</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -54,7 +62,21 @@
     <CLRSupport>true</CLRSupport>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
@@ -71,7 +93,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -93,7 +121,19 @@
     <TargetName>$(ProjectName)32</TargetName>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\Output\$(Configuration)\x86\</OutDir>
+    <TargetName>$(ProjectName)32</TargetName>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\Output\$(Configuration)\x64\</OutDir>
+    <TargetName>$(ProjectName)64</TargetName>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\Output\$(Configuration)\x64\</OutDir>
     <TargetName>$(ProjectName)64</TargetName>
@@ -179,6 +219,34 @@
       <ForceSymbolReferences>__DllMainCRTStartup@12 </ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;HAVE_NO_DLL;_CRT_SECURE_NO_WARNINGS;_WINDOWS;WNT;CSFDB;$(CSF_DEFINES);OCC_6_9_SUPPORTED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>.\OCC\src\Adaptor2d;.\OCC\src\Adaptor3d;.\OCC\src\AdvApp2Var;.\OCC\src\AdvApprox;.\OCC\src\AppBlend;.\OCC\src\AppCont;.\OCC\src\AppDef;.\OCC\src\AppParCurves;.\OCC\src\Approx;.\OCC\src\ApproxInt;.\OCC\src\Bisector;.\OCC\src\BiTgte;.\OCC\src\Blend;.\OCC\src\BlendFunc;.\OCC\src\Bnd;.\OCC\src\BndLib;.\OCC\src\BOPAlgo;.\OCC\src\BOPCol;.\OCC\src\BOPDS;.\OCC\src\BOPTools;.\OCC\src\BRep;.\OCC\src\BRepAdaptor;.\OCC\src\BRepAlgo;.\OCC\src\BRepAlgoAPI;.\OCC\src\BRepApprox;.\OCC\src\BRepBlend;.\OCC\src\BRepBndLib;.\OCC\src\BRepBuilderAPI;.\OCC\src\BRepCheck;.\OCC\src\BRepClass;.\OCC\src\BRepClass3d;.\OCC\src\BRepExtrema;.\OCC\src\BRepFill;.\OCC\src\BRepFilletAPI;.\OCC\src\BRepGProp;.\OCC\src\BRepIntCurveSurface;.\OCC\src\BRepLib;.\OCC\src\BRepLProp;.\OCC\src\BRepMAT2d;.\OCC\src\BRepMesh;.\OCC\src\BRepOffset;.\OCC\src\BRepOffsetAPI;.\OCC\src\BRepPrim;.\OCC\src\BRepPrimAPI;.\OCC\src\BRepProj;.\OCC\src\BRepSweep;.\OCC\src\BRepTools;.\OCC\src\BRepTopAdaptor;.\OCC\src\BSplCLib;.\OCC\src\BSplSLib;.\OCC\src\BVH;.\OCC\src\ChFi2d;.\OCC\src\ChFi3d;.\OCC\src\ChFiDS;.\OCC\src\ChFiKPart;.\OCC\src\Convert;.\OCC\src\CPnts;.\OCC\src\CSLib;.\OCC\src\Dico;.\OCC\src\Draft;.\OCC\src\ElCLib;.\OCC\src\ElSLib;.\OCC\src\Extrema;.\OCC\src\FairCurve;.\OCC\src\FEmTool;.\OCC\src\FilletSurf;.\OCC\src\FSD;.\OCC\src\GC;.\OCC\src\GccAna;.\OCC\src\GccEnt;.\OCC\src\GccInt;.\OCC\src\gce;.\OCC\src\GCE2d;.\OCC\src\GCPnts;.\OCC\src\Geom;.\OCC\src\Geom2d;.\OCC\src\Geom2dAdaptor;.\OCC\src\Geom2dAPI;.\OCC\src\Geom2dConvert;.\OCC\src\Geom2dEvaluator;.\OCC\src\Geom2dGcc;.\OCC\src\Geom2dHatch;.\OCC\src\Geom2dInt;.\OCC\src\Geom2dLProp;.\OCC\src\GeomAbs;.\OCC\src\GeomAdaptor;.\OCC\src\GeomAPI;.\OCC\src\GeomConvert;.\OCC\src\GeomEvaluator;.\OCC\src\GeomFill;.\OCC\src\GeomInt;.\OCC\src\GeomLib;.\OCC\src\GeomLProp;.\OCC\src\GeomPlate;.\OCC\src\GeomProjLib;.\OCC\src\GeomTools;.\OCC\src\gp;.\OCC\src\GProp;.\OCC\src\Hatch;.\OCC\src\HatchGen;.\OCC\src\Hermit;.\OCC\src\IntAna;.\OCC\src\IntAna2d;.\OCC\src\IntCurve;.\OCC\src\IntCurvesFace;.\OCC\src\IntCurveSurface;.\OCC\src\Intf;.\OCC\src\IntImp;.\OCC\src\IntImpParGen;.\OCC\src\IntPatch;.\OCC\src\IntPolyh;.\OCC\src\IntRes2d;.\OCC\src\IntStart;.\OCC\src\IntSurf;.\OCC\src\IntTools;.\OCC\src\IntWalk;.\OCC\src\Law;.\OCC\src\LocalAnalysis;.\OCC\src\LProp;.\OCC\src\LProp3d;.\OCC\src\MAT;.\OCC\src\MAT2d;.\OCC\src\math;.\OCC\src\MeshVS;.\OCC\src\Message;.\OCC\src\MMgt;.\OCC\src\NCollection;.\OCC\src\NLPlate;.\OCC\src\OSD;.\OCC\src\Plate;.\OCC\src\PLib;.\OCC\src\Plugin;.\OCC\src\Poly;.\OCC\src\Precision;.\OCC\src\ProjLib;.\OCC\src\Quantity;.\OCC\src\Resource;.\OCC\src\ShapeAlgo;.\OCC\src\ShapeAnalysis;.\OCC\src\ShapeBuild;.\OCC\src\ShapeConstruct;.\OCC\src\ShapeCustom;.\OCC\src\ShapeExtend;.\OCC\src\ShapeFix;.\OCC\src\ShapeProcess;.\OCC\src\ShapeProcessAPI;.\OCC\src\ShapeUpgrade;.\OCC\src\SortTools;.\OCC\src\Standard;.\OCC\src\StdFail;.\OCC\src\StdSelect;.\OCC\src\Storage;.\OCC\src\Sweep;.\OCC\src\TColGeom;.\OCC\src\TColGeom2d;.\OCC\src\TColgp;.\OCC\src\TCollection;.\OCC\src\TColStd;.\OCC\src\TopAbs;.\OCC\src\TopClass;.\OCC\src\TopExp;.\OCC\src\TopLoc;.\OCC\src\TopoDS;.\OCC\src\TopOpeBRep;.\OCC\src\TopOpeBRepBuild;.\OCC\src\TopOpeBRepDS;.\OCC\src\TopOpeBRepTool;.\OCC\src\TopTools;.\OCC\src\TopTrans;.\OCC\src\TShort;.\OCC\src\Units;.\OCC\src\UnitsAPI;$(CSF_OPT_INC);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <CompileAsManaged>false</CompileAsManaged>
+      <StringPooling>true</StringPooling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <OmitFramePointers>false</OmitFramePointers>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrt.lib;advapi32.lib;gdi32.lib;user32.lib;kernel32.lib;ws2_32.lib;vfw32.lib</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4248 /NOENTRY</AdditionalOptions>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ForceSymbolReferences>__DllMainCRTStartup@12 </ForceSymbolReferences>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -206,6 +274,34 @@
       <ForceSymbolReferences>_DllMainCRTStartup</ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithPDB|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;WIN64;HAVE_NO_DLL;_WINDOWS;WNT;CSFDB;$(CSF_DEFINES);_OCC64;OCC_6_9_SUPPORTED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>.\OCC\src\Adaptor2d;.\OCC\src\Adaptor3d;.\OCC\src\AdvApp2Var;.\OCC\src\AdvApprox;.\OCC\src\AppBlend;.\OCC\src\AppCont;.\OCC\src\AppDef;.\OCC\src\AppParCurves;.\OCC\src\Approx;.\OCC\src\ApproxInt;.\OCC\src\Bisector;.\OCC\src\BiTgte;.\OCC\src\Blend;.\OCC\src\BlendFunc;.\OCC\src\Bnd;.\OCC\src\BndLib;.\OCC\src\BOPAlgo;.\OCC\src\BOPCol;.\OCC\src\BOPDS;.\OCC\src\BOPTools;.\OCC\src\BRep;.\OCC\src\BRepAdaptor;.\OCC\src\BRepAlgo;.\OCC\src\BRepAlgoAPI;.\OCC\src\BRepApprox;.\OCC\src\BRepBlend;.\OCC\src\BRepBndLib;.\OCC\src\BRepBuilderAPI;.\OCC\src\BRepCheck;.\OCC\src\BRepClass;.\OCC\src\BRepClass3d;.\OCC\src\BRepExtrema;.\OCC\src\BRepFill;.\OCC\src\BRepFilletAPI;.\OCC\src\BRepGProp;.\OCC\src\BRepIntCurveSurface;.\OCC\src\BRepLib;.\OCC\src\BRepLProp;.\OCC\src\BRepMAT2d;.\OCC\src\BRepMesh;.\OCC\src\BRepOffset;.\OCC\src\BRepOffsetAPI;.\OCC\src\BRepPrim;.\OCC\src\BRepPrimAPI;.\OCC\src\BRepProj;.\OCC\src\BRepSweep;.\OCC\src\BRepTools;.\OCC\src\BRepTopAdaptor;.\OCC\src\BSplCLib;.\OCC\src\BSplSLib;.\OCC\src\BVH;.\OCC\src\ChFi2d;.\OCC\src\ChFi3d;.\OCC\src\ChFiDS;.\OCC\src\ChFiKPart;.\OCC\src\Convert;.\OCC\src\CPnts;.\OCC\src\CSLib;.\OCC\src\Dico;.\OCC\src\Draft;.\OCC\src\ElCLib;.\OCC\src\ElSLib;.\OCC\src\Extrema;.\OCC\src\FairCurve;.\OCC\src\FEmTool;.\OCC\src\FilletSurf;.\OCC\src\FSD;.\OCC\src\GC;.\OCC\src\GccAna;.\OCC\src\GccEnt;.\OCC\src\GccInt;.\OCC\src\gce;.\OCC\src\GCE2d;.\OCC\src\GCPnts;.\OCC\src\Geom;.\OCC\src\Geom2d;.\OCC\src\Geom2dAdaptor;.\OCC\src\Geom2dAPI;.\OCC\src\Geom2dConvert;.\OCC\src\Geom2dEvaluator;.\OCC\src\Geom2dGcc;.\OCC\src\Geom2dHatch;.\OCC\src\Geom2dInt;.\OCC\src\Geom2dLProp;.\OCC\src\GeomAbs;.\OCC\src\GeomAdaptor;.\OCC\src\GeomAPI;.\OCC\src\GeomConvert;.\OCC\src\GeomEvaluator;.\OCC\src\GeomFill;.\OCC\src\GeomInt;.\OCC\src\GeomLib;.\OCC\src\GeomLProp;.\OCC\src\GeomPlate;.\OCC\src\GeomProjLib;.\OCC\src\GeomTools;.\OCC\src\gp;.\OCC\src\GProp;.\OCC\src\Hatch;.\OCC\src\HatchGen;.\OCC\src\Hermit;.\OCC\src\IntAna;.\OCC\src\IntAna2d;.\OCC\src\IntCurve;.\OCC\src\IntCurvesFace;.\OCC\src\IntCurveSurface;.\OCC\src\Intf;.\OCC\src\IntImp;.\OCC\src\IntImpParGen;.\OCC\src\IntPatch;.\OCC\src\IntPolyh;.\OCC\src\IntRes2d;.\OCC\src\IntStart;.\OCC\src\IntSurf;.\OCC\src\IntTools;.\OCC\src\IntWalk;.\OCC\src\Law;.\OCC\src\LocalAnalysis;.\OCC\src\LProp;.\OCC\src\LProp3d;.\OCC\src\MAT;.\OCC\src\MAT2d;.\OCC\src\math;.\OCC\src\MeshVS;.\OCC\src\Message;.\OCC\src\MMgt;.\OCC\src\NCollection;.\OCC\src\NLPlate;.\OCC\src\OSD;.\OCC\src\Plate;.\OCC\src\PLib;.\OCC\src\Plugin;.\OCC\src\Poly;.\OCC\src\Precision;.\OCC\src\ProjLib;.\OCC\src\Quantity;.\OCC\src\Resource;.\OCC\src\ShapeAlgo;.\OCC\src\ShapeAnalysis;.\OCC\src\ShapeBuild;.\OCC\src\ShapeConstruct;.\OCC\src\ShapeCustom;.\OCC\src\ShapeExtend;.\OCC\src\ShapeFix;.\OCC\src\ShapeProcess;.\OCC\src\ShapeProcessAPI;.\OCC\src\ShapeUpgrade;.\OCC\src\SortTools;.\OCC\src\Standard;.\OCC\src\StdFail;.\OCC\src\StdSelect;.\OCC\src\Storage;.\OCC\src\Sweep;.\OCC\src\TColGeom;.\OCC\src\TColGeom2d;.\OCC\src\TColgp;.\OCC\src\TCollection;.\OCC\src\TColStd;.\OCC\src\TopAbs;.\OCC\src\TopClass;.\OCC\src\TopExp;.\OCC\src\TopLoc;.\OCC\src\TopoDS;.\OCC\src\TopOpeBRep;.\OCC\src\TopOpeBRepBuild;.\OCC\src\TopOpeBRepDS;.\OCC\src\TopOpeBRepTool;.\OCC\src\TopTools;.\OCC\src\TopTrans;.\OCC\src\TShort;.\OCC\src\Units;.\OCC\src\UnitsAPI;$(CSF_OPT_INC);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <CompileAsManaged>false</CompileAsManaged>
+      <StringPooling>true</StringPooling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>false</OpenMPSupport>
+      <OmitFramePointers>false</OmitFramePointers>
+      <Optimization>MaxSpeed</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>msvcrt.lib;advapi32.lib;gdi32.lib;user32.lib;kernel32.lib;ws2_32.lib;vfw32.lib</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4248 /NOENTRY</AdditionalOptions>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ForceSymbolReferences>_DllMainCRTStartup</ForceSymbolReferences>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System">
     </Reference>
@@ -214,22 +310,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Xbim.Common">
-      <HintPath>..\packages\Xbim.Essentials.4.0.15\lib\net40\Xbim.Common.dll</HintPath>
-      <Private>false</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <HintPath>..\packages\Xbim.Essentials.4.0.27\lib\net40\Xbim.Common.dll</HintPath>
     </Reference>
     <Reference Include="Xbim.Ifc4">
-      <HintPath>..\packages\Xbim.Essentials.4.0.15\lib\net40\Xbim.Ifc4.dll</HintPath>
-      <Private>false</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <HintPath>..\packages\Xbim.Essentials.4.0.27\lib\net40\Xbim.Ifc4.dll</HintPath>
     </Reference>
     <Reference Include="Xbim.Tessellator">
-      <HintPath>..\packages\Xbim.Essentials.4.0.15\lib\net40\Xbim.Tessellator.dll</HintPath>
-      <Private>false</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <HintPath>..\packages\Xbim.Essentials.4.0.27\lib\net40\Xbim.Tessellator.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
