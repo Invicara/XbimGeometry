@@ -728,9 +728,13 @@ namespace Xbim.ModelGeometry.Scene
             double precision = Math.Max(_model.ModelFactors.OneMilliMeter / 50, _model.ModelFactors.Precision); //set the precision to 100th mm but never less than precision
                                                                                                                 //make sure all the geometries we have cached are sewn
                                                                                                                 //   contextHelper.SewGeometries(Engine);
-            Parallel.ForEach(contextHelper.OpeningsAndProjections, contextHelper.ParallelOptions, pair =>
+
             //         foreach (IGrouping<IIfcElement, IIfcFeatureElement> pair in contextHelper.OpeningsAndProjections)
-            // foreach (IGrouping<IIfcElement, IIfcFeatureElement> pair in contextHelper.OpeningsAndProjections)
+#if DEBUG_NOPARALELL
+            foreach (IGrouping<IIfcElement, IIfcFeatureElement> pair in contextHelper.OpeningsAndProjections)
+#else
+            Parallel.ForEach(contextHelper.OpeningsAndProjections, contextHelper.ParallelOptions, pair =>
+#endif
             {
                 int context = 0;
                 int styleId = 0; //take the style of any part of the main shape
@@ -777,13 +781,21 @@ namespace Xbim.ModelGeometry.Scene
                     booleanOps.Add(boolOp);
                 }
 
-            });
-            //process all the large ones first
+         }
+#if !DEBUG_NOPARALELL           
+            );
+#endif
+
+         //process all the large ones first
+
+#if DEBUG_NOPARALELL
+         foreach (var bop in booleanOps.OrderByDescending(b => b.CutGeometries.Count + b.ProjectGeometries.Count))
+#else
             Parallel.ForEach(booleanOps.OrderByDescending(b => b.CutGeometries.Count + b.ProjectGeometries.Count), contextHelper.ParallelOptions, bop =>
-            //  foreach (var bop in booleanOps.OrderByDescending(b => b.CutGeometries.Count + b.ProjectGeometries.Count))
+#endif
             {
-                //  Console.WriteLine("{0} - {1}", bop.CutGeometries.Count, bop.ArgumentGeometries.Count);
-                Interlocked.Increment(ref localTally);
+               //  Console.WriteLine("{0} - {1}", bop.CutGeometries.Count, bop.ArgumentGeometries.Count);
+               Interlocked.Increment(ref localTally);
                 var elementLabel = 0;
                 try
                 {
@@ -901,7 +913,9 @@ namespace Xbim.ModelGeometry.Scene
                 }
                 //if (progDelegate != null) progDelegate(101, "FeatureElement, (#" + element.EntityLabel + " ended)");
             }
+#if !DEBUG_NOPARALELL
             );
+#endif
             contextHelper.PercentageParsed = localPercentageParsed;
             contextHelper.Tally = localTally;
             if (progDelegate != null) progDelegate(101, "WriteFeatureElements, (" + localTally + " written)");
@@ -938,13 +952,16 @@ namespace Xbim.ModelGeometry.Scene
                 }
             }
 
-             Parallel.ForEach(products, contextHelper.ParallelOptions, product =>
-           // foreach (var product in products)
+#if DEBUG_NOPARALELL
+            foreach(var product in products)
+#else
+            Parallel.ForEach(products, contextHelper.ParallelOptions, product =>
+#endif
             {
-                //select representations that are in the required context
-                //only want solid representations for this context, but rep type is optional so just filter identified 2d elements
-                //we can only handle one representation in a context and this is in an implementers agreement
-                var rep =
+               //select representations that are in the required context
+               //only want solid representations for this context, but rep type is optional so just filter identified 2d elements
+               //we can only handle one representation in a context and this is in an implementers agreement
+               var rep =
                     product.Representation.Representations.FirstOrDefault(r => IsInContext(r) &&
                                                                                r.IsBodyRepresentation());
                 //write out the representation if it has one
@@ -953,7 +970,9 @@ namespace Xbim.ModelGeometry.Scene
                     WriteProductShape(contextHelper, product, true, txn);
                 }
             }
+#if !DEBUG_NOPARALELL
             );
+#endif
             contextHelper.Tally = localTally;
             contextHelper.PercentageParsed = localPercentageParsed;
         }
@@ -1074,10 +1093,14 @@ namespace Xbim.ModelGeometry.Scene
         private void WriteMappedItems(XbimCreateContextHelper contextHelper, ReportProgressDelegate progDelegate)
         {
             if (progDelegate != null) progDelegate(-1, "WriteMappedItems (" + contextHelper.MappedShapeIds.Count + " items)");
+
+#if PARALELL_DEBUG
+            foreach (var map in allMaps)
+#else
             Parallel.ForEach(contextHelper.MappedShapeIds, contextHelper.ParallelOptions, mapId =>
-            //   foreach (var map in allMaps)
+#endif
             {
-                var entity = _model.Instances[mapId];
+               var entity = _model.Instances[mapId];
                 var map = entity as IIfcMappedItem;
                 var mapShapes = new List<GeometryReference>();
                 if (map != null)
@@ -1153,8 +1176,12 @@ namespace Xbim.ModelGeometry.Scene
                     }
                 }
             }
+
+#if DEBUG_NOPARALELL
+            foreach (var shapeId in contextHelper.ProductShapeIds)
+#else
             Parallel.ForEach(contextHelper.ProductShapeIds, contextHelper.ParallelOptions, shapeId =>
-            // foreach (var shapeId in contextHelper.ProductShapeIds)
+#endif
             {
                 Interlocked.Increment(ref localTally);
                 var shape = (IIfcGeometricRepresentationItem)Model.Instances[shapeId];
@@ -1259,11 +1286,12 @@ namespace Xbim.ModelGeometry.Scene
                     }
                 }
             }
+#if !DEBUG_NOPARALELL
            );
+#endif
 
             contextHelper.PercentageParsed = localPercentageParsed;
             contextHelper.Tally = localTally;
-
 
             //Now tidy up the maps
             //Parallel.ForEach(mapLookup, contextHelper.ParallelOptions, mapKv =>
