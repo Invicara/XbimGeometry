@@ -730,7 +730,7 @@ namespace Xbim.ModelGeometry.Scene
                                                                                                                 //   contextHelper.SewGeometries(Engine);
 
             //         foreach (IGrouping<IIfcElement, IIfcFeatureElement> pair in contextHelper.OpeningsAndProjections)
-#if DEBUG_NOPARALELL
+#if DEBUG_NOPARALLEL
             foreach (IGrouping<IIfcElement, IIfcFeatureElement> pair in contextHelper.OpeningsAndProjections)
 #else
             Parallel.ForEach(contextHelper.OpeningsAndProjections, contextHelper.ParallelOptions, pair =>
@@ -782,13 +782,13 @@ namespace Xbim.ModelGeometry.Scene
                 }
 
          }
-#if !DEBUG_NOPARALELL           
+#if !DEBUG_NOPARALLEL           
             );
 #endif
 
          //process all the large ones first
 
-#if DEBUG_NOPARALELL
+#if DEBUG_NOPARALLEL
          foreach (var bop in booleanOps.OrderByDescending(b => b.CutGeometries.Count + b.ProjectGeometries.Count))
 #else
             Parallel.ForEach(booleanOps.OrderByDescending(b => b.CutGeometries.Count + b.ProjectGeometries.Count), contextHelper.ParallelOptions, bop =>
@@ -913,7 +913,7 @@ namespace Xbim.ModelGeometry.Scene
                 }
                 //if (progDelegate != null) progDelegate(101, "FeatureElement, (#" + element.EntityLabel + " ended)");
             }
-#if !DEBUG_NOPARALELL
+#if !DEBUG_NOPARALLEL
             );
 #endif
             contextHelper.PercentageParsed = localPercentageParsed;
@@ -952,7 +952,7 @@ namespace Xbim.ModelGeometry.Scene
                 }
             }
 
-#if DEBUG_NOPARALELL
+#if DEBUG_NOPARALLEL
             foreach(var product in products)
 #else
             Parallel.ForEach(products, contextHelper.ParallelOptions, product =>
@@ -970,7 +970,7 @@ namespace Xbim.ModelGeometry.Scene
                     WriteProductShape(contextHelper, product, true, txn);
                 }
             }
-#if !DEBUG_NOPARALELL
+#if !DEBUG_NOPARALLEL
             );
 #endif
             contextHelper.Tally = localTally;
@@ -1177,7 +1177,7 @@ namespace Xbim.ModelGeometry.Scene
                 }
             }
 
-#if DEBUG_NOPARALELL
+#if DEBUG_NOPARALLEL
             foreach (var shapeId in contextHelper.ProductShapeIds)
 #else
             Parallel.ForEach(contextHelper.ProductShapeIds, contextHelper.ParallelOptions, shapeId =>
@@ -1286,7 +1286,7 @@ namespace Xbim.ModelGeometry.Scene
                     }
                 }
             }
-#if !DEBUG_NOPARALELL
+#if !DEBUG_NOPARALLEL
            );
 #endif
 

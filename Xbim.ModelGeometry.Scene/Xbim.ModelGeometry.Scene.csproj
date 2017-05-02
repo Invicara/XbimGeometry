@@ -77,7 +77,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseWithPDB|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\Output\Release\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DEBUG_NOPARALELL</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;DEBUG_NOPARALLEL</DefineConstants>
     <DocumentationFile>..\Output\Release\Xbim.ModelGeometry.Scene.XML</DocumentationFile>
     <Optimize>false</Optimize>
     <NoWarn>1591;1572;1573;1574</NoWarn>
